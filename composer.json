@@ -1,7 +1,7 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "drawmyattention/laravel-jenkins-ci-boilerplate",
+	"description": "The Laravel Framework 5.0.* with Jenkins CI boilerplate",
+	"keywords": ["framework", "laravel", "ci", "jenkins"],
 	"license": "MIT",
 	"type": "project",
 	"require": {
