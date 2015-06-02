@@ -1,3 +1,5 @@
-.DS_Store
+/vendor
+/node_modules
+.env
 /.idea
 /.git
