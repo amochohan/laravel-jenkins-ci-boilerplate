@@ -43,6 +43,14 @@
                 <include name="**/*.php"/>
                 <modified/>
             </fileset>
+            <fileset dir="${basedir}/config">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+            <fileset dir="${basedir}/resources">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
             <fileset dir="${basedir}/tests">
                 <include name="**/*.php"/>
                 <modified/>
@@ -54,6 +62,8 @@
         <exec executable="${toolsdir}phploc" taskname="phploc">
             <arg value="--count-tests"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
             <arg path="${basedir}/tests"/>
         </exec>
         <property name="phploc.done" value="true"/>
@@ -66,6 +76,8 @@
             <arg value="--log-xml"/>
             <arg path="${basedir}/build/logs/phploc.xml"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
             <arg path="${basedir}/tests"/>
         </exec>
         <property name="phploc.done" value="true"/>
@@ -76,12 +88,16 @@
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg"/>
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
         </exec>
         <property name="pdepend.done" value="true"/>
     </target>
     <target name="phpmd" unless="phpmd.done" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="${toolsdir}phpmd" taskname="phpmd">
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
             <arg value="text"/>
             <arg path="${basedir}/build/phpmd.xml"/>
         </exec>
@@ -90,6 +106,8 @@
     <target name="phpmd-ci" unless="phpmd.done" depends="prepare" description="Perform project mess detection using PHPMD and log result in XML format. Intended for usage within a continuous integration environment.">
         <exec executable="${toolsdir}phpmd" taskname="phpmd">
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
             <arg value="xml"/>
             <arg path="${basedir}/build/phpmd.xml"/>
             <arg value="--reportfile"/>
@@ -103,6 +121,8 @@
             <arg value="--extensions=php"/>
             <arg value="--ignore=autoload.php"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
             <arg path="${basedir}/tests"/>
         </exec>
         <property name="phpcs.done" value="true"/>
@@ -115,6 +135,8 @@
             <arg value="--extensions=php"/>
             <arg value="--ignore=autoload.php"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
         </exec>
         <property name="phpcs.done" value="true"/>
     </target>
@@ -129,6 +151,8 @@
             <arg value="--log-pmd"/>
             <arg path="${basedir}/build/logs/pmd-cpd.xml"/>
             <arg path="${basedir}/app"/>
+            <arg path="${basedir}/config"/>
+            <arg path="${basedir}/resources"/>
         </exec>
         <property name="phpcpd.done" value="true"/>
     </target>
