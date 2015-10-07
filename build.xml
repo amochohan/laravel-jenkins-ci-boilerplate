@@ -7,8 +7,8 @@
     <!--
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
     -->
-    <target name="build" depends="prepare,storage-permissions,composer,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
-    <target name="build-parallel" depends="prepare,storage-permissions,composer,lint,tools-parallel,phpunit,phpdox" description=""/>
+    <target name="build" depends="prepare,composer,storage-permissions,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
+    <target name="build-parallel" depends="prepare,composer,storage-permissions,lint,tools-parallel,phpunit,phpdox" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
             <sequential>
