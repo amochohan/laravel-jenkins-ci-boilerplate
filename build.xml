@@ -7,8 +7,8 @@
     <!--
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
     -->
-    <target name="build" depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
-    <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
+    <target name="build" depends="prepare,storage-permissions,composer,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
+    <target name="build-parallel" depends="prepare,storage-permissions,composer,lint,tools-parallel,phpunit,phpdox" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
             <sequential>
@@ -148,5 +148,24 @@
     <target name="phpdox" unless="phpdox.done" depends="phploc-ci,phpcs-ci,phpmd-ci" description="Generate project documentation using phpDox">
         <exec executable="${toolsdir}phpdox" dir="${basedir}/build" taskname="phpdox"/>
         <property name="phpdox.done" value="true"/>
+    </target>
+    <target name="clean-composer" description="Cleanup composer artifacts">
+        <echo>Cleaning out the composer artifacts</echo>
+        <delete dir="${basedir}/vendor" />
+        <delete file="${basedir}/composer.lock" />
+    </target>
+    <target name="composer" depends="composer-update" description="Install or update dependencies" />
+    <target name="composer-update" depends="composer.check" description="Updating dependencies">
+        <echo>Installing/Updating Composer dependencies</echo>
+        <exec executable="composer" failonerror="true">
+            <arg value="update" />
+            <arg value="--no-scripts" />
+        </exec>
+    </target>
+    <target name="storage-permissions" description="Setting storage permissions">
+        <echo>Setting storage, bootstrap, and vendor to 777</echo>
+        <chmod file="${basedir}/storage/**" perm="777" type="dir" failonerror="false" />
+        <chmod file="${basedir}/bootstrap/**" perm="777" type="dir" failonerror="false" />
+        <chmod file="${basedir}/vendor/**" perm="777" type="dir" failonerror="false" />
     </target>
 </project>
