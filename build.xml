@@ -179,7 +179,7 @@
         <delete file="${basedir}/composer.lock" />
     </target>
     <target name="composer" depends="composer-update" description="Install or update dependencies" />
-    <target name="composer-update" depends="composer.check" description="Updating dependencies">
+    <target name="composer-update" description="Updating dependencies">
         <echo>Installing/Updating Composer dependencies</echo>
         <exec executable="composer" failonerror="true">
             <arg value="update" />
