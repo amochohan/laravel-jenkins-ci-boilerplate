@@ -87,17 +87,13 @@
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml"/>
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg"/>
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg"/>
-            <arg path="${basedir}/app"/>
-            <arg path="${basedir}/config"/>
-            <arg path="${basedir}/resources"/>
+            <arg path="${basedir}/app,${basedir}/config,${basedir}/resources"/>
         </exec>
         <property name="pdepend.done" value="true"/>
     </target>
     <target name="phpmd" unless="phpmd.done" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="${toolsdir}phpmd" taskname="phpmd">
-            <arg path="${basedir}/app"/>
-            <arg path="${basedir}/config"/>
-            <arg path="${basedir}/resources"/>
+            <arg path="${basedir}/app,${basedir}/config,${basedir}/resources"/>
             <arg value="text"/>
             <arg path="${basedir}/build/phpmd.xml"/>
         </exec>
