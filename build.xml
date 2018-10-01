@@ -8,7 +8,7 @@
      <property name="toolsdir" value="${basedir}/vendor/bin/"/>
     -->
     <target name="build" depends="prepare,lint,phploc-ci,pdepend,phpmd-ci,phpcs-ci,phpcpd-ci,phpunit,phpdox" description=""/>
-    <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpdox" description=""/>
+    <target name="build-parallel" depends="prepare,lint,tools-parallel,phpdox,phpunit,serve-site,wait,dusk" description=""/>
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
             <sequential>
@@ -148,5 +148,23 @@
     <target name="phpdox" unless="phpdox.done" depends="phploc-ci,phpcs-ci,phpmd-ci" description="Generate project documentation using phpDox">
         <exec executable="${toolsdir}phpdox" dir="${basedir}/build" taskname="phpdox"/>
         <property name="phpdox.done" value="true"/>
+    </target>
+    <target name="serve-site" description="Serve Laravel Site">
+        <echo>Serving Site to localhost</echo>
+        <exec executable="php" spawn="true">
+            <arg value="artisan" />
+            <arg value="serve" />
+        </exec>
+    </target>
+    <target name="wait" description="Wait for serve to finish ">
+        <exec executable="sleep" failonerror="true">
+            <arg value="5" />
+        </exec>
+    </target>
+    <target name="dusk" description="Run Laravel Dusk">
+        <exec executable="php" failonerror="true">
+            <arg value="artisan" />
+            <arg value="dusk" />
+        </exec>
     </target>
 </project>
